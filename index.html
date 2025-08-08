@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { createPageUrl } from "@/utils";
-import { Calendar, Brain, Lightbulb, Timer, Home, Settings, Sparkles } from "lucide-react";
+import { createPageUrl } from "@/utils"; // Sørg for at denne funker som forventet
+import { Calendar, Brain, Lightbulb, Timer, Home, Sparkles } from "lucide-react";
+
+// UI-komponentene dine fra "@/components/ui/sidebar"
 import {
   Sidebar,
   SidebarContent,
@@ -17,43 +19,44 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
+// Navigasjonsdata for menyen
 const navigationItems = [
   {
     title: "Hjem",
     url: createPageUrl("Dashboard"),
     icon: Home,
-    description: "Dagens oversikt"
+    description: "Dagens oversikt",
   },
   {
     title: "Min Dag",
     url: createPageUrl("DayPlanner"),
     icon: Calendar,
-    description: "Planlegg dagen"
+    description: "Planlegg dagen",
   },
   {
     title: "Rutiner",
     url: createPageUrl("Routines"),
     icon: Brain,
-    description: "Strukturer hverdagen"
+    description: "Strukturer hverdagen",
   },
   {
     title: "Fokus",
     url: createPageUrl("Focus"),
     icon: Timer,
-    description: "Tidstyring og timere"
+    description: "Tidstyring og timere",
   },
   {
     title: "Idébank",
     url: createPageUrl("Ideas"),
     icon: Lightbulb,
-    description: "Samle tanker"
+    description: "Samle tanker",
   },
   {
     title: "AI Coach",
     url: createPageUrl("AICoach"),
     icon: Sparkles,
-    description: "Personlig AI-veiledning"
-  }
+    description: "Personlig AI-veiledning",
+  },
 ];
 
 export default function Layout({ children, currentPageName }) {
@@ -61,6 +64,7 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <SidebarProvider>
+      {/* Inline styles for farger og effekter */}
       <style>
         {`
           :root {
@@ -93,7 +97,9 @@ export default function Layout({ children, currentPageName }) {
           }
         `}
       </style>
+
       <div className="min-h-screen flex w-full adhd-gradient">
+        {/* Sidebar */}
         <Sidebar className="border-r border-white/20 bg-white/10 backdrop-blur-md">
           <SidebarHeader className="border-b border-white/10 p-6">
             <div className="flex items-center gap-3">
@@ -106,36 +112,44 @@ export default function Layout({ children, currentPageName }) {
               </div>
             </div>
           </SidebarHeader>
-          
+
           <SidebarContent className="p-3">
+            {/* Navigasjonsgruppe */}
             <SidebarGroup>
               <SidebarGroupLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 py-3">
                 Navigasjon
               </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {navigationItems.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton 
-                        asChild 
-                        className={`adhd-smooth hover:bg-indigo-50 hover:text-indigo-700 rounded-xl mb-2 px-4 py-3 ${
-                          location.pathname === item.url ? 'bg-indigo-50 text-indigo-700 font-semibold shadow-sm' : 'text-gray-600'
-                        }`}
-                      >
-                        <Link to={item.url} className="flex items-center gap-4">
-                          <item.icon className="w-5 h-5 flex-shrink-0" />
-                          <div className="flex flex-col">
-                            <span className="font-medium">{item.title}</span>
-                            <span className="text-xs opacity-70">{item.description}</span>
-                          </div>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
+                  {navigationItems.map((item) => {
+                    const isActive = location.pathname === item.url;
+
+                    return (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton
+                          asChild
+                          className={`adhd-smooth hover:bg-indigo-50 hover:text-indigo-700 rounded-xl mb-2 px-4 py-3 ${
+                            isActive
+                              ? "bg-indigo-50 text-indigo-700 font-semibold shadow-sm"
+                              : "text-gray-600"
+                          }`}
+                        >
+                          <Link to={item.url} className="flex items-center gap-4">
+                            <item.icon className="w-5 h-5 flex-shrink-0" />
+                            <div className="flex flex-col">
+                              <span className="font-medium">{item.title}</span>
+                              <span className="text-xs opacity-70">{item.description}</span>
+                            </div>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    );
+                  })}
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
 
+            {/* Rask tilgang */}
             <SidebarGroup>
               <SidebarGroupLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 py-3">
                 Rask tilgang
@@ -149,7 +163,7 @@ export default function Layout({ children, currentPageName }) {
                     </div>
                     <p className="text-xs text-green-600">Start en 25-min fokusøkt</p>
                   </div>
-                  
+
                   <div className="p-3 bg-amber-50 rounded-lg">
                     <div className="flex items-center gap-2 text-sm font-medium text-amber-800 mb-1">
                       <Lightbulb className="w-4 h-4" />
@@ -175,7 +189,9 @@ export default function Layout({ children, currentPageName }) {
           </SidebarFooter>
         </Sidebar>
 
+        {/* Hovedinnhold */}
         <main className="flex-1 flex flex-col">
+          {/* Mobil header */}
           <header className="bg-white/50 backdrop-blur-sm border-b border-white/20 px-6 py-4 md:hidden">
             <div className="flex items-center gap-4">
               <SidebarTrigger className="adhd-smooth hover:bg-gray-100 p-2 rounded-xl" />
@@ -183,9 +199,7 @@ export default function Layout({ children, currentPageName }) {
             </div>
           </header>
 
-          <div className="flex-1 overflow-auto">
-            {children}
-          </div>
+          <div className="flex-1 overflow-auto">{children}</div>
         </main>
       </div>
     </SidebarProvider>
