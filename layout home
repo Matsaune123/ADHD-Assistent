@@ -1,0 +1,193 @@
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { createPageUrl } from "@/utils";
+import { Calendar, Brain, Lightbulb, Timer, Home, Settings, Sparkles } from "lucide-react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarHeader,
+  SidebarFooter,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+
+const navigationItems = [
+  {
+    title: "Hjem",
+    url: createPageUrl("Dashboard"),
+    icon: Home,
+    description: "Dagens oversikt"
+  },
+  {
+    title: "Min Dag",
+    url: createPageUrl("DayPlanner"),
+    icon: Calendar,
+    description: "Planlegg dagen"
+  },
+  {
+    title: "Rutiner",
+    url: createPageUrl("Routines"),
+    icon: Brain,
+    description: "Strukturer hverdagen"
+  },
+  {
+    title: "Fokus",
+    url: createPageUrl("Focus"),
+    icon: Timer,
+    description: "Tidstyring og timere"
+  },
+  {
+    title: "Idébank",
+    url: createPageUrl("Ideas"),
+    icon: Lightbulb,
+    description: "Samle tanker"
+  },
+  {
+    title: "AI Coach",
+    url: createPageUrl("AICoach"),
+    icon: Sparkles,
+    description: "Personlig AI-veiledning"
+  }
+];
+
+export default function Layout({ children, currentPageName }) {
+  const location = useLocation();
+
+  return (
+    <SidebarProvider>
+      <style>
+        {`
+          :root {
+            --adhd-primary: #4F46E5;
+            --adhd-secondary: #10B981;
+            --adhd-accent: #F59E0B;
+            --adhd-calm: #EEF2FF;
+            --adhd-focus: #DBEAFE;
+            --adhd-success: #D1FAE5;
+            --adhd-warm: #FEF3C7;
+          }
+          
+          .adhd-gradient {
+            background: linear-gradient(135deg, var(--adhd-calm) 0%, #FDFBFB 100%);
+          }
+          
+          .adhd-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+          }
+          
+          .adhd-focus-ring:focus {
+            outline: 2px solid var(--adhd-primary);
+            outline-offset: 2px;
+          }
+          
+          .adhd-smooth {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+        `}
+      </style>
+      <div className="min-h-screen flex w-full adhd-gradient">
+        <Sidebar className="border-r border-white/20 bg-white/10 backdrop-blur-md">
+          <SidebarHeader className="border-b border-white/10 p-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Brain className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="font-bold text-gray-900 text-lg">ADHD Assistent</h2>
+                <p className="text-xs text-gray-500 font-medium">Strukturer hverdagen din</p>
+              </div>
+            </div>
+          </SidebarHeader>
+          
+          <SidebarContent className="p-3">
+            <SidebarGroup>
+              <SidebarGroupLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 py-3">
+                Navigasjon
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {navigationItems.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton 
+                        asChild 
+                        className={`adhd-smooth hover:bg-indigo-50 hover:text-indigo-700 rounded-xl mb-2 px-4 py-3 ${
+                          location.pathname === item.url ? 'bg-indigo-50 text-indigo-700 font-semibold shadow-sm' : 'text-gray-600'
+                        }`}
+                      >
+                        <Link to={item.url} className="flex items-center gap-4">
+                          <item.icon className="w-5 h-5 flex-shrink-0" />
+                          <div className="flex flex-col">
+                            <span className="font-medium">{item.title}</span>
+                            <span className="text-xs opacity-70">{item.description}</span>
+                          </div>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+
+            <SidebarGroup>
+              <SidebarGroupLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 py-3">
+                Rask tilgang
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <div className="px-3 space-y-3">
+                  <div className="p-3 bg-green-50 rounded-lg">
+                    <div className="flex items-center gap-2 text-sm font-medium text-green-800 mb-1">
+                      <Timer className="w-4 h-4" />
+                      <span>Pomodoro klar</span>
+                    </div>
+                    <p className="text-xs text-green-600">Start en 25-min fokusøkt</p>
+                  </div>
+                  
+                  <div className="p-3 bg-amber-50 rounded-lg">
+                    <div className="flex items-center gap-2 text-sm font-medium text-amber-800 mb-1">
+                      <Lightbulb className="w-4 h-4" />
+                      <span>Rask notis</span>
+                    </div>
+                    <p className="text-xs text-amber-600">Fang opp en tanke</p>
+                  </div>
+                </div>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+
+          <SidebarFooter className="border-t border-white/10 p-4">
+            <div className="flex items-center gap-3 p-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-semibold text-sm">M</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-medium text-gray-900 text-sm truncate">Min profil</p>
+                <p className="text-xs text-gray-500 truncate">Tilpass innstillinger</p>
+              </div>
+            </div>
+          </SidebarFooter>
+        </Sidebar>
+
+        <main className="flex-1 flex flex-col">
+          <header className="bg-white/50 backdrop-blur-sm border-b border-white/20 px-6 py-4 md:hidden">
+            <div className="flex items-center gap-4">
+              <SidebarTrigger className="adhd-smooth hover:bg-gray-100 p-2 rounded-xl" />
+              <h1 className="text-xl font-bold text-gray-900">ADHD Assistent</h1>
+            </div>
+          </header>
+
+          <div className="flex-1 overflow-auto">
+            {children}
+          </div>
+        </main>
+      </div>
+    </SidebarProvider>
+  );
+}
