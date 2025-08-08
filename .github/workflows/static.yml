@@ -1,9 +1,8 @@
-# Build og deploy til GitHub Pages
-name: Build & Deploy static site
+name: Deploy static content to Pages
 
 on:
   push:
-    branches: ["main"]  # Deploy når main oppdateres
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -22,36 +21,19 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout kode
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Sett opp Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Installer avhengigheter
-        run: npm install
-
-      - name: Bygg med Babel
-        run: |
-          mkdir -p dist
-          npx babel src --out-dir dist --extensions ".js,.jsx"
-
-      - name: Kopier HTML og andre statiske filer
-        run: |
-          cp index.html dist/
-          # Hvis du har CSS eller andre filer, kopier dem også
-          # cp -r assets dist/assets
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact (dist-mappen)
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'dist'
+          # Legg inn mappen der index.html ligger
+          path: '.'
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
