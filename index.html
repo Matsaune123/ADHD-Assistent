@@ -3,71 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard</title>
+  <title>Test Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet" />
 </head>
-<body class="min-h-screen bg-white p-4 md:p-8">
-  <div class="max-w-7xl mx-auto space-y-8">
+<body class="min-h-screen bg-gray-100 p-8">
+  <div class="max-w-4xl mx-auto space-y-6">
 
-    <!-- Header -->
-    <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">God morgen! 🌟</h1>
-      <p id="date" class="text-lg text-gray-600 font-medium">Lørdag 9. august 2025</p>
-    </header>
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-2xl font-bold mb-4">Velkommen tilbake!</h2>
+      <p class="text-gray-700">Dette er en statisk velkomstmelding.</p>
+    </div>
 
-    <!-- Main Grid -->
-    <main class="grid lg:grid-cols-12 gap-6">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-2xl font-bold mb-4">Dagens fremdrift</h2>
+      <p>Fullførte oppgaver: 2 / 5</p>
+      <progress value="40" max="100" class="w-full h-5 rounded mt-2"></progress>
+    </div>
 
-      <!-- Left Column -->
-      <section class="lg:col-span-8 space-y-6">
-        <div class="bg-indigo-50 rounded-lg shadow p-6">
-          <h2 class="text-xl font-bold mb-2">Velkommen tilbake!</h2>
-          <p>Dette er en statisk velkomstmelding.</p>
-        </div>
-
-        <div class="bg-white rounded-lg shadow p-6">
-          <h2 class="text-xl font-bold mb-2">Dagens fremdrift</h2>
-          <p>Fullførte oppgaver: 2 / 5</p>
-          <progress value="40" max="100" class="w-full h-4 rounded mt-2"></progress>
-        </div>
-
-        <div class="bg-white rounded-lg shadow p-6">
-          <h2 class="text-xl font-bold mb-2">Kommende oppgaver</h2>
-          <ul class="list-disc list-inside space-y-1">
-            <li>Oppgave 1</li>
-            <li>Oppgave 2</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Right Column -->
-      <aside class="lg:col-span-4 space-y-6">
-        <div class="bg-white rounded-lg shadow p-6">
-          <h2 class="text-xl font-bold mb-4">Nylige økter</h2>
-          <ul class="space-y-2 text-gray-700">
-            <li>Fokusøkt 1 – 25 min ⭐ 4/5</li>
-            <li>Fokusøkt 2 – 15 min ⭐ 5/5</li>
-          </ul>
-        </div>
-
-        <div class="bg-white rounded-lg shadow p-6">
-          <h2 class="text-xl font-bold mb-4">Siste idéer</h2>
-          <ul class="space-y-2 text-gray-700">
-            <li>Lag et nytt prosjekt om...</li>
-            <li>Skriv ferdig artikkel om...</li>
-          </ul>
-        </div>
-      </aside>
-
-    </main>
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-2xl font-bold mb-4">Kommende oppgaver</h2>
+      <ul class="list-disc list-inside space-y-1 text-gray-700">
+        <li>Oppgave 1</li>
+        <li>Oppgave 2</li>
+      </ul>
+    </div>
 
   </div>
-
-  <script>
-    // Sett dagens dato på norsk
-    const dateEl = document.getElementById('date');
-    const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-    dateEl.textContent = new Date().toLocaleDateString('no-NO', options);
-  </script>
 </body>
 </html>
