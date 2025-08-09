@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome Card</title>
+  <script>
+    // JavaScript for tilfeldig motivasjonsmelding
+    document.addEventListener("DOMContentLoaded", () => {
+      const messages = [
+        "Du klarer dette! Ta én ting om gangen. 💪",
+        "Husk å ta pauser - hjernen din trenger dem! 🧠",
+        "Små fremskritt er fortsatt fremskritt! ⭐",
+        "Du er sterkere enn du tror! 🌟",
+        "Fokuser på det du kan kontrollere i dag! 🎯"
+      ];
+      const randomIndex = Math.floor(Math.random() * messages.length);
+      document.getElementById("motivational-message").textContent = messages[randomIndex];
+    });
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="max-w-md mx-auto mt-10">
+    <div class="shadow-lg border-0 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg">
+      <div class="p-6">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+            <!-- Sparkles ikon som emoji -->
+            <span class="text-white text-2xl">✨</span>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">
+              Velkommen tilbake!
+            </h3>
+            <p id="motivational-message" class="text-gray-600 mb-4 text-lg font-medium leading-relaxed">
+              <!-- Her settes tilfeldig melding -->
+            </p>
+            <div class="flex items-center gap-2 text-sm text-indigo-600">
+              <!-- Heart ikon som emoji -->
+              <span class="text-indigo-600 text-lg">❤️</span>
+              <span class="font-medium">Din personlige ADHD-assistent er her for deg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
